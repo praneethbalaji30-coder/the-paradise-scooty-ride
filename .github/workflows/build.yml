@@ -34,12 +34,13 @@ jobs:
         cd raylib/src
         make PLATFORM=PLATFORM_WEB -j4
 
-    - name: Compile C to WASM
+    - name: Compile C to WASM with Shell Template
       run: |
         emcc parCyc2.c -o index.html \
           -I./raylib/src \
           ./raylib/src/libraylib.a \
           -s USE_GLFW=3 -s ASYNCIFY=1 -s WASM=1 \
+          --shell-file ./raylib/src/web/shell.html \
           --preload-file paradHeroscooty.png \
           --preload-file shikanjaMalik.png \
           --preload-file chotaMalik.png \

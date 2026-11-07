@@ -4,6 +4,9 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,7 +20,7 @@ jobs:
       with:
         version: latest
 
-    - name: Setup Raylib for Web compilation
+    - name: Setup Raylib
       run: |
         sudo apt-get update
         sudo apt-get install -y libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
@@ -25,11 +28,11 @@ jobs:
         cd raylib/src
         make PLATFORM=PLATFORM_WEB -j4
 
-    - name: Compile parCyc2.c to WebAssembly
+    - name: Compile C to WASM
       run: |
         emcc parCyc2.c -o index.html \
           -I./raylib/src ./raylib/src/libraylib.a \
-          -s USE_GLFW=3 -s ASYNCIFY -s WASM=1 \
+          -s USE_GLFW=3 -s ASYNCIFY=1 -s WASM=1 \
           --preload-file paradHeroscooty.png \
           --preload-file shikanjaMalik.png \
           --preload-file chotaMalik.png \

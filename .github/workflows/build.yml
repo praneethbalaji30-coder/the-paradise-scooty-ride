@@ -38,7 +38,7 @@ jobs:
       run: |
         emcc parCyc2.c -o index.html \
           -I./raylib/src \
-          ./raylib/src/web/libraylib.a \
+          ./raylib/src/libraylib.a \
           -s USE_GLFW=3 -s ASYNCIFY=1 -s WASM=1 \
           --preload-file paradHeroscooty.png \
           --preload-file shikanjaMalik.png \
